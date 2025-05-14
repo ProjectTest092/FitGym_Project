@@ -166,48 +166,55 @@ signupForm.addEventListener('submit', function (e) {
         method: 'POST',
         body: formData,
     })
-        .then((response) => {
-            if (!response.ok) {
-                throw new Error('Network response was not ok');
-            }
-            return response.json();
-        })
-        .then((data) => {
-            if (data.success) {
-                signupError.style.display = 'none';
-                signupSuccess.textContent = data.message || 'Account created successfully!';
-                signupSuccess.style.display = 'block';
+    .then((response) => {
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+        return response.json();
+    })
+    .then((data) => {
+        if (data.success) {
+            // Store user data in localStorage
+            localStorage.setItem('user_id', data.user.id);
+            localStorage.setItem('username', data.user.username);
+            localStorage.setItem('email', data.user.email);
+            
+            signupError.style.display = 'none';
+            signupSuccess.textContent = data.message || 'Account created successfully!';
+            signupSuccess.style.display = 'block';
 
-                // Clear form
-                signupForm.reset();
+            // Clear form
+            signupForm.reset();
 
-                // Switch to login modal after 2 seconds
-                setTimeout(() => {
-                    signupModal.style.display = 'none';
-                    loginModal.style.display = 'flex';
-                    signupSuccess.style.display = 'none';
-                }, 2000);
+            // Update UI to show logged in state
+            navLogin.style.display = 'none';
+            document.querySelector('.nav-profile').style.display = 'flex';
+            usernameDisplay.textContent = data.user.username;
 
+            // Close modal after 2 seconds
+            setTimeout(() => {
+                signupModal.style.display = 'none';
                 showToast('Account created successfully!', 'success');
-            } else {
-                signupSuccess.style.display = 'none';
-                signupError.textContent = data.message || 'Signup failed. Please try again.';
-                signupError.style.display = 'block';
-                showToast(data.message || 'Signup failed', 'error');
-            }
-        })
-        .catch((error) => {
-            console.error('Signup error:', error);
+            }, 2000);
+        } else {
             signupSuccess.style.display = 'none';
-            signupError.textContent = 'An error occurred. Please try again.';
+            signupError.textContent = data.message || 'Signup failed. Please try again.';
             signupError.style.display = 'block';
-            showToast('Signup failed. Please try again.', 'error');
-        })
-        .finally(() => {
-            // Reset button state
-            submitBtn.disabled = false;
-            submitBtn.textContent = originalBtnText;
-        });
+            showToast(data.message || 'Signup failed', 'error');
+        }
+    })
+    .catch((error) => {
+        console.error('Signup error:', error);
+        signupSuccess.style.display = 'none';
+        signupError.textContent = 'An error occurred. Please try again.';
+        signupError.style.display = 'block';
+        showToast('Signup failed. Please try again.', 'error');
+    })
+    .finally(() => {
+        // Reset button state
+        submitBtn.disabled = false;
+        submitBtn.textContent = originalBtnText;
+    });
 });
 
 // Handle logout with confirmation

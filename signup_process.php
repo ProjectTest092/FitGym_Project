@@ -52,6 +52,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         exit;
     }
     
+    if (strlen($password) < 6) {
+        echo json_encode([
+            'success' => false,
+            'message' => "Password must be at least 6 characters long"
+        ]);
+        exit;
+    }
+    
     // Check if username or email exists
     $check_sql = "SELECT * FROM users WHERE username = ? OR email = ?";
     $stmt = $conn->prepare($check_sql);
@@ -81,6 +89,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['user_id'] = $user_id;
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
+        $_SESSION['logged_in'] = true;
         
         error_log("User created successfully - ID: $user_id, Username: $username, Email: $email");
         
@@ -88,7 +97,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         echo json_encode([
             'success' => true,
             'message' => "Account created successfully!",
-            'redirect' => "Project.html"
+            'user' => [
+                'id' => $user_id,
+                'username' => $username,
+                'email' => $email
+            ]
         ]);
     } else {
         error_log("Error creating user: " . $stmt->error);
