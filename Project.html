@@ -1,0 +1,613 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>FitGym</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+    integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anton&display=swap" />
+  <link rel="stylesheet" href="Project.css" />
+  <link href="https://cdn.jsdelivr.net/npm/remixicon@3.4.0/fonts/remixicon.css" rel="stylesheet" />
+  <!-- This link is for arrows and Strenght section icons   -->
+  <style>
+    /* Modal Styles */
+.modal {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  justify-content: center;
+  align-items: center;
+}
+
+.modal-content {
+  background: rgba(255, 255, 255, 0.95);
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  width: 400px;
+  text-align: center;
+  position: relative;
+}
+
+.close-btn {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  font-size: 24px;
+  cursor: pointer;
+  color: #2c3e50;
+}
+
+.close-btn:hover {
+  color: #e74c3c;
+}
+
+.input-group {
+  margin-bottom: 25px;
+  text-align: left;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #2c3e50;
+  font-weight: bold;
+}
+
+.input-group input {
+  width: 100%;
+  padding: 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.3s;
+}
+
+.input-group input:focus {
+  outline: none;
+  border-color: #e74c3c;
+}
+
+.login-btn {
+  background: #e74c3c;
+  color: white;
+  padding: 14px 30px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  transition: background 0.3s;
+  width: 100%;
+  margin-top: 15px;
+}
+
+.login-btn:hover {
+  background: #c0392b;
+}
+
+.links {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.links a {
+  color: #2c3e50;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s;
+}
+
+.links a:hover {
+  color: #e74c3c;
+}
+
+.error-message {
+  color: #e74c3c;
+  margin-bottom: 15px;
+  display: none;
+}
+
+.success-message {
+  color: #27ae60;
+  margin-bottom: 15px;
+  display: none;
+}
+
+
+    
+    /* Profile Dropdown Styles */
+    .nav-profile {
+      position: relative;
+    }
+
+    .profile-dropdown {
+      position: relative;
+      display: inline-block;
+    }
+
+    .profile-btn {
+      background: none;
+      border: none;
+      color: white;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    .profile-btn:hover {
+      transform: translateY(-2px);
+    }
+
+    .profile-btn i {
+      font-size: 20px;
+      color: white;
+    }
+
+    .dropdown-content {
+      display: none;
+      position: absolute;
+      right: 0;
+      background-color: #fff;
+      min-width: 200px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+      border-radius: 8px;
+      z-index: 1000;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .profile-dropdown:hover .dropdown-content {
+      display: block;
+    }
+
+    .dropdown-content a {
+      color: #333;
+      padding: 12px 16px;
+      text-decoration: none;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .dropdown-content a:hover {
+      background-color: #f5f5f5;
+      transform: translateX(5px);
+    }
+
+    .dropdown-content a i {
+      color: #333;
+      transition: transform 0.3s ease;
+    }
+
+    .dropdown-content a:hover i {
+      transform: scale(1.1);
+    }
+
+    /* Loading Spinner */
+    .loading-spinner {
+      display: none;
+      width: 20px;
+      height: 20px;
+      border: 2px solid #f3f3f3;
+      border-top: 2px solid #3498db;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+      margin-left: 8px;
+    }
+
+    @keyframes spin {
+      0% {
+        transform: rotate(0deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+    /* Toast Notification */
+    .toast {
+      position: fixed;
+      bottom: 20px;
+      right: 20px;
+      background: #333;
+      color: white;
+      padding: 12px 24px;
+      border-radius: 4px;
+      display: none;
+      z-index: 1000;
+      animation: slideIn 0.3s ease;
+    }
+
+    @keyframes slideIn {
+      from {
+        transform: translateX(100%);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateX(0);
+        opacity: 1;
+      }
+    }
+
+    /* Profile Modal Styles */
+    .profile-info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 20px;
+      margin-top: 20px;
+    }
+
+    .profile-avatar {
+      font-size: 80px;
+      color: #2c3e50;
+    }
+
+    .profile-details {
+      width: 100%;
+    }
+
+    .profile-details .input-group {
+      margin-bottom: 15px;
+    }
+
+    .profile-details input {
+      background-color: #f5f5f5;
+    }
+
+    /* This code is for Cardio section css  */
+    .container {
+      max-width: 600px;
+      margin: auto;
+      background: white;
+      padding: 20px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    button {
+      background-color: #007BFF;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    ul {
+      list-style-type: disc;
+      padding-left: 20px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header section -->
+  <header>
+    <div class="navbar">
+      <div class="nav-logo border">
+        <div class="logo">FitGym</div>
+      </div>
+
+      <div class="nav-home underline">
+        <i class="fa-solid fa-house"></i>
+        <a href="Project.html">Home</a>
+      </div>
+
+      <div class="nav-contact underline">
+        <a href="#contact-section">Contact Us</a>
+      </div>
+
+      <div class="nav-about underline">
+        <a href="#about-section">About Us</a>
+      </div>
+
+      <div class="nav-cart underline">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <a href="Tabs/Cart.html" target="_blank">Cart</a>
+      </div>
+
+      <div class="nav-login underline">
+        <i class="fa-solid fa-user"></i>
+        <a href="#" id="loginBtn">Login/Sign Up</a>
+      </div>
+      <div class="nav-profile" style="display: none">
+        <div class="profile-dropdown">
+          <button class="profile-btn">
+            <i class="fa-solid fa-user-circle"></i>
+            <span id="username-display">User</span>
+            <i class="fa-solid fa-chevron-down"></i>
+          </button>
+          <div class="dropdown-content">
+            <a href="#" id="viewProfile">
+              <i class="fa-solid fa-user"></i> View Profile
+            </a>
+            <a href="#" id="logoutBtn">
+              <i class="fa-solid fa-right-from-bracket"></i> Logout
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Login Modal -->
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h1>Member Login</h1>
+      <div id="loginError" class="error-message"></div>
+      <form id="loginForm" action="login_process.php" method="post">
+        <div class="input-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required />
+        </div>
+        <div class="input-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required />
+        </div>
+        <button type="submit" class="login-btn">Login</button>
+      </form>
+      <div class="links">
+        <a href="#">Forgot Password?</a>
+        <a href="#" id="showSignup">Create Account</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Signup Modal -->
+  <div id="signupModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h1>Create Account</h1>
+      <div id="signupError" class="error-message"></div>
+      <div id="signupSuccess" class="success-message"></div>
+      <form id="signupForm" action="signup_process.php" method="post">
+        <div class="input-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" name="username" placeholder="Enter your username" required />
+        </div>
+        <div class="input-group">
+          <label for="signupEmail">Email</label>
+          <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required />
+        </div>
+        <div class="input-group">
+          <label for="signupPassword">Password</label>
+          <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required />
+        </div>
+        <button type="submit" class="login-btn">Sign Up</button>
+      </form>
+      <div class="links">
+        <a href="#" id="showLogin">Already have an account? Login</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Profile Modal -->
+  <div id="profileModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn">&times;</span>
+      <h1>User Profile</h1>
+      <div class="profile-info">
+        <div class="profile-avatar">
+          <i class="fa-solid fa-user-circle"></i>
+        </div>
+        <div class="profile-details">
+          <div class="input-group">
+            <label for="profileUsername">Username</label>
+            <input type="text" id="profileUsername" readonly />
+          </div>
+          <div class="input-group">
+            <label for="profileEmail">Email</label>
+            <input type="email" id="profileEmail" readonly />
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Shop section -->
+  <div class="shop-section">
+    <div class="box">
+      <a href="Tabs/blank1.html" class="box-content">
+        <h2>Resistance Bands</h2>
+        <div class="box-img1"></div>
+        <p>See more Results</p>
+      </a>
+    </div>
+    <div class="box">
+      <a href="Tabs/blank2.html" class="box-content">
+        <h2>Gym Dumbbell</h2>
+        <div class="box-img2"></div>
+        <p>See more Results</p>
+      </a>
+    </div>
+    <div class="box">
+      <a href="Tabs/blank3.html" class="box-content">
+        <h2>Yoga Mat</h2>
+        <div class="box-img3"></div>
+        <p>See more Results</p>
+      </a>
+    </div>
+    <div class="box">
+      <a href="Tabs/blank4.html" class="box-content">
+        <h2>Protein & Creatine</h2>
+        <div class="box-img4"></div>
+        <p>See more Results</p>
+      </a>
+    </div>
+  </div>
+
+  <!-- Merge section -->
+  <div class="merge_section p">
+    <p class="text">Cardio Section</p>
+  </div>
+
+  <!-- Cardio section -->
+  <h2 id="cardio">Free Online Cardio Excersice at Home.</h2>
+  <div class="Cardio_container">
+    <aside>
+      <video controls muted src="photos/cardio.mp4" height="500px"></video>
+    </aside>
+    <div class="cardio_main">
+      <div class="container">
+        <h1>Cardio Exercise Information</h1>
+        <p id="info">
+          Cardio exercises are activities that raise your heart rate. They are
+          essential for improving cardiovascular health, burning calories, and
+          enhancing overall fitness. <br />
+          Cardiovascular health refers to the well-being of the heart and
+          blood vessels. Maintaining good cardiovascular health is vital for
+          overall health and longevity.
+        </p>
+        <button id="moreInfoBtn">Show More Info</button>
+        <div id="moreInfo" class="hidden">
+          <h2>Benefits of Cardio</h2>
+          <ul>
+            <li>Improves heart health</li>
+            <li>Helps with weight management</li>
+            <li>Boosts mood and mental health</li>
+            <li>Increases stamina and endurance</li>
+            <li>Reduces the risk of chronic diseases</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Strength Section -->
+  <section class="section__container explore__container">
+    <div class="explore__header">
+      <h2 class="section__header">EXPLORE OUR PROGRAM</h2>
+    </div>
+    <div class="explore__grid">
+      <!-- Strenght Section -->
+      <div class="explore__card">
+        <span><i class="ri-boxing-fill"></i></span>
+        <h4>Strength</h4>
+        <p>
+          Embrace the essence of strength as we delve into its various
+          dimensions physical, mental, and emotional.
+        </p>
+        <a href="EOProgram/Strength.html" target="_self">Explore <i class="ri-arrow-right-line"></i></a>
+      </div>
+      <!--  -->
+      <div class="explore__card">
+        <span><i class="ri-heart-pulse-fill"></i></span>
+        <h4>Physical Fitness</h4>
+        <p>
+          It encompasses a range of activities that improve health,
+          strength,flexibility, and overall well-being.
+        </p>
+        <a href="EOProgram/PFitness.html" target="_self">Explore <i class="ri-arrow-right-line"></i></a>
+      </div>
+      <div class="explore__card">
+        <span><i class="ri-run-line"></i></span>
+        <h4>Fat Lose</h4>
+        <p>
+          Through a combination of workout routines and expert guidance, we'll
+          empower you to reach your goals.
+        </p>
+        <a href="EOProgram/FatLose.html" target="_self">Explore <i class="ri-arrow-right-line"></i></a>
+      </div>
+      <div class="explore__card">
+        <span><i class="ri-shopping-basket-fill"></i></span>
+        <h4>Weight Gain</h4>
+        <p>
+          Designed for individuals, our program offers an effective approach
+          to gaining weight in a sustainable manner.
+        </p>
+        <a href="EOProgram/WeightGain.html" target="_self">Explore <i class="ri-arrow-right-line"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer Section -->
+  <footer>
+    <div class="footer-container">
+      <div class="footer-section" id="about-section">
+        <h2>About Us</h2>
+        <p>
+          FitGym is dedicated to helping you achieve your fitness goals with
+          state-of-the-art equipment and expert trainers.
+        </p>
+      </div>
+      <!-- <div class="footer-section">
+        <h2>Quick Links</h2>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#membership">Membership</a></li>
+        </ul>
+      </div> -->
+      <div class="footer-section" id="contact-section">
+        <h2>Contact Us</h2>
+        <p>Email: info@fitlifegym.com</p>
+        <p>Phone: (123) 456-7890</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 FitGym. All rights reserved.</p>
+    </div>
+  </footer>
+  
+  <script src="Project.js"></script>
+  <script>
+
+    // This Code is for Cardio MoreInfoBtn 
+    document.getElementById('moreInfoBtn').addEventListener('click', function () {
+      const moreInfo = document.getElementById('moreInfo');
+      if (moreInfo.classList.contains('hidden')) {
+        moreInfo.classList.remove('hidden');
+        this.textContent = 'Show Less Info';
+      } else {
+        moreInfo.classList.add('hidden');
+        this.textContent = 'Show more Info';
+      }
+    });
+  </script>
+</body>
+
+</html>

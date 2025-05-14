@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GYM Dumbbell</title>
+    <link rel="stylesheet" href="blank1.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+    />
+    <style>@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --primary-color: #111317;
+  --primary-color-light: #1f2125;
+  --primary-color-extra-light: #35373b;
+  --secondary-color: #f9ac54;
+  --secondary-color-dark: #d79447;
+  --text-light: #d1d5db;
+  --white: #ffffff;
+  --max-width: 1200px;
+
+  --primary-color-light: #1f2125;
+  --primary-color-extra-light: #35373b;
+  --secondary-color: #f9ac54;
+  --secondary-color-dark: #d79447;
+  --text-light: #d1d5db;
+  --white: #ffffff;
+  --max-width: 1200px;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #111317;
+}
+
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
+.navbar {
+  height: 75px;
+  background-color: #1b242d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+
+.nav-logo {
+  height: 60px;
+  width: 110px;
+}
+
+.logo {
+  font-family: "Anton", serif;
+  font-size: 40px;
+}
+
+.nav-home {
+  color: whitesmoke;
+  visibility: hidden;
+}
+
+.nav-cart {
+  color: whitesmoke;
+}
+
+.nav-login {
+  color: whitesmoke;
+}
+
+a {
+  text-decoration: none;
+  font-size: 18px;
+  color: antiquewhite;
+}
+
+body {
+  background-image: url("photos/bg.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+}
+
+.underline {
+  position: relative;
+  display: inline-block;
+}
+
+.underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  bottom: 0;
+  left: 0;
+  transition: width .5s ease;
+}
+
+.underline:hover::after {
+  width: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #111317;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+
+/*                  Main section */
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding: 20px;
+}
+
+.product-block {
+    background-color: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin: 15px;
+    padding: 15px;
+    width: 300px; 
+}
+
+.product-image {
+    width: 100%;
+    height: auto;
+    border-radius: 8px;
+}
+
+.product-info {
+    text-align: center;
+}
+
+.product-title {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 10px 0;
+    color: #333;
+}
+
+.product-rating {
+    font-size: 14px;
+    color: #ff9800; /* Orange color for rating */
+}
+
+.product-price {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50; 
+}
+
+.add-to-cart {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 15px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+}
+
+.add-to-cart:hover {
+    background-color: #0056b3; 
+}
+
+
+
+
+
+/*                    Footer section */
+
+footer {
+  padding: 10px 0;
+  background: #333;
+  color: #fff;
+  position: relative;
+  bottom: 0px;
+  width: 100%;
+}
+
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 100px;
+  margin: 10px;
+}
+
+.footer-section h2 {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section ul {
+  margin: 10px 0;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 5px 0;
+}
+
+.footer-section a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #222;
+}</style>
+  </head>
+
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="nav-logo border">
+          <a class="logo" href="/Project.html">FitGym</a>
+        </div>
+
+        <div class="nav-contact underline">
+          <a href="#contact-section">Contact Us</a>
+        </div>
+
+        <div class="nav-about underline">
+          <a href="#about-section">About Us</a>
+        </div>
+
+        <div class="nav-cart underline">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <a href="Cart.html" target="_blank">Cart</a>
+        </div>
+
+        <div class="nav-login underline">
+          <i class="fa-solid fa-user"></i>
+          <a href="Login.html" target="_blank" id="Login">Login/Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <main>
+      <div class="container">
+        <!-- Product 1 -->
+        <div class="product-block">
+          <img src="Photos/img7.jpg" class="product-image" />
+          <div class="product-info">
+            <h2 class="product-title">Kore PVC 20 Kg Home Gym Set with One 3 Ft Curl Rod and One Pair Dumbbell Rods, Multicolour</h2>
+            <p class="product-rating">3.4</p>
+            <p class="product-price">₹999</p>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <!-- Product 2 -->
+        <div class="product-block">
+          <img src="Photos/img8.jpg" class="product-image" />
+          <div class="product-info">
+            <h2 class="product-title">Protoner PVC 3 in 1 convertible DM 4-40 Kg Dumbbells Set and Fitness Kit for Men and Women Whole Body Workout (8 kg (2 kg x 4), 3 in 1 convertible)</h2>
+            <p class="product-rating">3.4</p>
+            <p class="product-price">₹499</p>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <!-- Product 3 -->
+        <div class="product-block">
+          <img src="Photos/img9.jpg" class="product-image" />
+          <div class="product-info">
+            <h2 class="product-title">Body Maxx 90 Kg Adjustable Steel Chrome Plated Dumbells + Dumbells Rods, Home Gym Set</h2>
+            <p class="product-rating">3.9</p>
+            <p class="product-price">₹583</p>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <!-- Product 4 -->
+        <div class="product-block">
+          <img src="Photos/img10.jpg" class="product-image" />
+          <div class="product-info">
+            <h2 class="product-title">SX Fitness 10 Kg (2.5kg x 4) Adjustable PVC Dumbbells Weights set With 14" Inches Dumbbells Rods Gym Equipment For Home Gym Exercise & Strength Training, (Black)</h2>
+            <p class="product-rating">4.0</p>
+            <p class="product-price">₹550</p>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <!-- Product 5 -->
+        <div class="product-block">
+          <img src="Photos/img11.jpg" class="product-image" />
+          <div class="product-info">
+            <h2 class="product-title">Protoner 20 Kg PVC Adjustable Dumbbell Set.</h2>
+            <p class="product-rating">3</p>
+            <p class="product-price">₹749</p>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+        <!-- Product 6 -->
+        <div class="product-block">
+          <img src="Photos/img12.jpg" class="product-image" />
+          <div class="product-info">
+            <h2 class="product-title">LEEWAY Rubber Coated Bouncer Dumbbells Weights, (20kg Pair)| Professional Round Dumbbells for home workout, Gym Dumbbell Set, Dumbbell Set of 2, home Gym Equipment for Men and Women, Black</h2>
+            <p class="product-rating">4.5</p>
+            <p class="product-price">₹1299</p>
+            <button class="add-to-cart">Add to Cart</button>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section" id="about-section">
+          <h2>About Us</h2>
+          <p>
+            FitGym is dedicated to helping you achieve your fitness goals with
+            state-of-the-art equipment and expert trainers.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h2>Quick Links</h2>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#membership">Membership</a></li>
+          </ul>
+        </div>
+        <div class="footer-section" id="contact-section">
+          <h2>Contact Us</h2>
+          <p>Email: info@fitlifegym.com</p>
+          <p>Phone: (123) 456-7890</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 FitGym. All rights reserved.</p>
+      </div>
+    </footer>
+
+    <script src="Tabs.js"></script>
+  </body>
+</html>

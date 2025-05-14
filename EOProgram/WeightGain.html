@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Gym Weight Gain</title>
+    <link rel="stylesheet" href="WeightGain.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+      integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Anton&display=swap"
+    />
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&display=swap');
+
+:root {
+  --primary-color: #111317;
+  --primary-color-light: #1f2125;
+  --primary-color-extra-light: #35373b;
+  --secondary-color: #f9ac54;
+  --secondary-color-dark: #d79447;
+  --text-light: #d1d5db;
+  --white: #ffffff;
+  --max-width: 1200px;
+
+  --primary-color-light: #1f2125;
+  --primary-color-extra-light: #35373b;
+  --secondary-color: #f9ac54;
+  --secondary-color-dark: #d79447;
+  --text-light: #d1d5db;
+  --white: #ffffff;
+  --max-width: 1200px;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+  background-color: #111317;
+}
+
+* {
+  margin: 0%;
+  padding: 0%;
+}
+
+.navbar {
+  height: 75px;
+  background-color: #1b242d;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  gap: 100px;
+}
+
+
+.nav-logo {
+  height: 60px;
+  width: 110px;
+}
+
+.logo {
+  font-family: "Anton", serif;
+  font-size: 40px;
+}
+
+.nav-home {
+  color: whitesmoke;
+  visibility: hidden;
+}
+
+.nav-cart {
+  color: whitesmoke;
+}
+
+.nav-login {
+  color: whitesmoke;
+}
+
+a {
+  text-decoration: none;
+  font-size: 18px;
+  color: antiquewhite;
+}
+
+body {
+  background-image: url("photos/bg.jpg");
+  background-size: 100%;
+  background-repeat: no-repeat;
+
+}
+
+.underline {
+  position: relative;
+  display: inline-block;
+}
+
+.underline::after {
+  content: '';
+  position: absolute;
+  width: 0;
+  height: 2px;
+  background-color: white;
+  bottom: 0;
+  left: 0;
+  transition: width .5s ease;
+}
+
+.underline:hover::after {
+  width: 100%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+  background-color: #111317;
+}
+
+nav ul {
+  list-style: none;
+  padding: 0;
+}
+
+nav ul li {
+  display: inline;
+  margin: 0 15px;
+}
+
+nav ul li a {
+  color: #fff;
+  text-decoration: none;
+}
+
+
+/*          Main Container */
+
+main {
+  padding: 30px;
+}
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#Benefits {
+  margin: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 40px;
+  display: inline-block;
+  max-width: 500px;
+}
+
+#Tips {
+  margin: 30px;
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 40px;
+  display: inline-block;
+  max-width: 500px;
+}
+
+ul {
+  list-style: square;
+  padding-left: 10px;
+}
+
+aside {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+
+img {
+  border-radius: 20px;
+  height: 250px;
+  width: 360px;
+}
+
+
+/*         Footer section */
+
+footer {
+  padding: 10px;
+  background: #333;
+  color: #fff;
+  position: relative;
+  bottom: 0;
+  width: 100%;
+}
+
+
+.footer-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  max-width: 1200px;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 100px;
+  margin: 10px;
+}
+
+.footer-section h2 {
+  border-bottom: 2px solid #fff;
+  padding-bottom: 10px;
+}
+
+.footer-section p,
+.footer-section ul {
+  margin: 10px 0;
+}
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.footer-section ul li {
+  margin: 5px 0;
+}
+
+.footer-section a {
+  color: #fff;
+  text-decoration: none;
+}
+
+.footer-section a:hover {
+  text-decoration: underline;
+}
+
+.footer-bottom {
+  text-align: center;
+  padding: 10px 0;
+  background-color: #222;
+}
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <div class="navbar">
+        <div class="nav-logo border">
+          <a class="logo" href="/Project.html">FitGym</a>
+        </div>
+
+        <div class="nav-contact underline">
+          <a href="#contact-section">Contact Us</a>
+        </div>
+
+        <div class="nav-about underline">
+          <a href="#about-section">About Us</a>
+        </div>
+
+        <div class="nav-cart underline">
+          <i class="fa-solid fa-cart-shopping"></i>
+          <a href="Tabs/Cart.html" target="_blank">Cart</a>
+        </div>
+
+        <div class="nav-login underline">
+          <i class="fa-solid fa-user"></i>
+          <a href="Login.html" target="_blank" id="Login">Login/Sign Up</a>
+        </div>
+      </div>
+    </header>
+
+    <!--          Main Container -->
+
+    <main>
+      <aside class="img_container">
+        <img src="Photos/img10.jpg" />
+        <img src="Photos/img11.jpg" />
+        <img src="Photos/img12.jpg" />
+      </aside>
+
+      <div class="container">
+        <section id="Benefits">
+          <h2>Benefits of Weight Gain:</h2>
+          <ul>
+            <li>Improves Strength & Muscle Mass – Helps build muscle, increasing physical strength and endurance.</li>
+            <li>Boosts Energy Levels – Provides sufficient fuel for daily activities and workouts.</li>
+            <li>Enhances Immune System – Adequate nutrition supports a stronger immune response.</li>
+            <li>Promotes Better Recovery – Helps in faster healing and muscle repair after injuries or workouts.</li>
+          </ul>
+        </section>
+
+        <section id="Tips">
+          <h2>Tips of Weight Gain: </h2>
+          <ul>
+            <li>Eat More Calories – Consume more calories than you burn daily.</li>
+            <li>Increase Protein Intake – Helps in muscle growth and recovery.</li>
+            <li>Eat Nutrient-Dense Foods – Focus on whole grains, nuts, dairy, and healthy fats.</li>
+            <li>Eat More Frequently – Have small meals throughout the day.</li>
+            <li>Include Healthy Carbs – Whole grains, potatoes, and starchy vegetables help.</li>
+            <li>Stay Consistent – Gradual, steady weight gain is healthier.</li>
+          </ul>
+        </section>
+      </div>
+    </main>
+
+    <!--      Footer Container -->
+
+    <footer>
+      <div class="footer-container">
+        <div class="footer-section" id="about-section">
+          <h2>About Us</h2>
+          <p>
+            FitGym is dedicated to helping you achieve your fitness goals with
+            state-of-the-art equipment and expert trainers.
+          </p>
+        </div>
+        <div class="footer-section">
+          <h2>Quick Links</h2>
+          <ul>
+            <li><a href="#about">About Us</a></li>
+            <li><a href="#services">Services</a></li>
+            <li><a href="#contact">Contact</a></li>
+            <li><a href="#membership">Membership</a></li>
+          </ul>
+        </div>
+        <div class="footer-section" id="contact-section">
+          <h2>Contact Us</h2>
+          <p>Email: info@fitlifegym.com</p>
+          <p>Phone: (123) 456-7890</p>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>&copy; 2025 FitGym. All rights reserved.</p>
+      </div>
+    </footer>
+  </body>
+</html>
