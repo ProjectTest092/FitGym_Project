@@ -1,274 +1,111 @@
-// User Authentication
-let currentUser = null;
+// Get cart items from localStorage
+const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+const cartItemsContainer = document.getElementById('cart-items');
+const totalPriceElement = document.getElementById('total-price');
+const emptyMsgContainer = document.querySelector(".empty-msg-container");
+const msgContainer = document.querySelector(".msg-container");
 
-// Check if user is logged in
-function checkAuth() {
-    const user = localStorage.getItem('currentUser');
-    if (user) {
-        currentUser = JSON.parse(user);
-        document.getElementById('loginBtn').style.display = 'none';
-        document.getElementById('signupBtn').style.display = 'none';
-        document.getElementById('userInfo').style.display = 'block';
-        document.getElementById('userName').textContent = currentUser.username;
-    } else {
-        document.getElementById('loginBtn').style.display = 'block';
-        document.getElementById('signupBtn').style.display = 'block';
-        document.getElementById('userInfo').style.display = 'none';
-    }
-}
+// Initialize total price
+let totalPrice = 0;
 
-// Shopping Cart Class
-class ShoppingCart {
-    constructor() {
-        this.cartItems = [];
-        this.total = 0;
-        this.cartContainer = document.getElementById('cart-items');
-        this.totalElement = document.getElementById('cart-total');
-        this.checkoutBtn = document.getElementById('checkout-btn');
-        this.emptyCartMessage = document.getElementById('empty-cart-message');
-        
-        this.checkoutBtn.addEventListener('click', () => this.checkout());
-        this.loadCartItems();
+// Function to update cart display
+function updateCartDisplay() {
+    // Clear previous items
+    cartItemsContainer.innerHTML = '';
+    totalPrice = 0;
+
+    if (cartItems.length === 0) {
+        emptyMsgContainer.classList.remove("hide");
+        msgContainer.classList.add("hide");
+        return;
     }
 
-    async loadCartItems() {
-        if (!currentUser) {
-            this.showEmptyCart();
-            return;
-        }
+    emptyMsgContainer.classList.add("hide");
+    msgContainer.classList.remove("hide");
 
-        try {
-            const response = await fetch(`api/cart.php?user_id=${currentUser.user_id}`);
-            const data = await response.json();
-            
-            if (response.ok) {
-                this.cartItems = data;
-                this.updateCartDisplay();
-            } else {
-                console.error('Error loading cart items:', data.message);
-                this.showEmptyCart();
-            }
-        } catch (error) {
-            console.error('Error loading cart items:', error);
-            this.showEmptyCart();
-        }
-    }
-
-    async addItem(product) {
-        if (!currentUser) {
-            alert('Please login to add items to cart');
-            return;
-        }
-
-        try {
-            const response = await fetch('api/cart.php', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_id: currentUser.user_id,
-                    product_title: product.title,
-                    product_price: product.price,
-                    product_image: product.image
-                })
-            });
-
-            const data = await response.json();
-            
-            if (response.ok) {
-                await this.loadCartItems();
-                this.showToast('Item added to cart');
-            } else {
-                console.error('Error adding item to cart:', data.message);
-            }
-        } catch (error) {
-            console.error('Error adding item to cart:', error);
-        }
-    }
-
-    async removeItem(cartItemId) {
-        if (!currentUser) return;
-
-        try {
-            const response = await fetch('api/cart.php', {
-                method: 'DELETE',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_id: currentUser.user_id,
-                    cart_item_id: cartItemId
-                })
-            });
-
-            const data = await response.json();
-            
-            if (response.ok) {
-                await this.loadCartItems();
-            } else {
-                console.error('Error removing item from cart:', data.message);
-            }
-        } catch (error) {
-            console.error('Error removing item from cart:', error);
-        }
-    }
-
-    async updateQuantity(cartItemId, newQuantity) {
-        if (!currentUser) return;
-
-        try {
-            const response = await fetch('api/cart.php', {
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_id: currentUser.user_id,
-                    cart_item_id: cartItemId,
-                    quantity: newQuantity
-                })
-            });
-
-            const data = await response.json();
-            
-            if (response.ok) {
-                await this.loadCartItems();
-            } else {
-                console.error('Error updating item quantity:', data.message);
-            }
-        } catch (error) {
-            console.error('Error updating item quantity:', error);
-        }
-    }
-
-    updateCartDisplay() {
-        if (this.cartItems.length === 0) {
-            this.showEmptyCart();
-            return;
-        }
-
-        this.cartContainer.innerHTML = '';
-        this.total = 0;
-
-        this.cartItems.forEach(item => {
-            const itemTotal = item.product_price * item.quantity;
-            this.total += itemTotal;
-
-            const cartItemElement = this.createCartItemElement(item);
-            this.cartContainer.appendChild(cartItemElement);
-        });
-
-        this.totalElement.textContent = `$${this.total.toFixed(2)}`;
-        this.checkoutBtn.disabled = false;
-        this.emptyCartMessage.style.display = 'none';
-    }
-
-    createCartItemElement(item) {
-        const cartItem = document.createElement('div');
-        cartItem.className = 'cart-item';
-        cartItem.innerHTML = `
-            <img src="${item.product_image}" alt="${item.product_title}" class="cart-item-image">
-            <div class="cart-item-details">
-                <h3>${item.product_title}</h3>
-                <p>$${item.product_price}</p>
+    // Display each cart item
+    cartItems.forEach((item, index) => {
+        const itemElement = document.createElement('div');
+        itemElement.className = 'cart-item';
+        itemElement.innerHTML = `
+            <div class="item-details">
+                <div class="item-image">
+                    <img src="${item.image}" alt="${item.title}" />
+                </div>
+                <div class="item-info">
+                    <h3>${item.title}</h3>
+                    <p class="price">₹${item.price}</p>
+                </div>
                 <div class="quantity-controls">
-                    <button class="quantity-btn" onclick="cart.updateQuantity(${item.cart_item_id}, ${item.quantity - 1})">-</button>
-                    <span>${item.quantity}</span>
-                    <button class="quantity-btn" onclick="cart.updateQuantity(${item.cart_item_id}, ${item.quantity + 1})">+</button>
+                    <button class="quantity-btn decrease" data-index="${index}">-</button>
+                    <span class="quantity">${item.quantity || 1}</span>
+                    <button class="quantity-btn increase" data-index="${index}">+</button>
+                </div>
+                <div class="item-total">
+                    <p>Total: ₹${((item.quantity || 1) * item.price).toFixed(2)}</p>
+                    <button class="remove-item" data-index="${index}">
+                        <i class="fas fa-trash"></i> Remove
+                    </button>
                 </div>
             </div>
-            <button class="remove-btn" onclick="cart.removeItem(${item.cart_item_id})">×</button>
         `;
-        return cartItem;
-    }
+        cartItemsContainer.appendChild(itemElement);
+        totalPrice += (item.quantity || 1) * item.price;
+    });
 
-    showEmptyCart() {
-        this.cartContainer.innerHTML = '';
-        this.total = 0;
-        this.totalElement.textContent = '$0.00';
-        this.checkoutBtn.disabled = true;
-        this.emptyCartMessage.style.display = 'block';
-    }
-
-    checkout() {
-        if (!currentUser) {
-            alert('Please login to checkout');
-            return;
-        }
-
-        if (this.cartItems.length === 0) {
-            alert('Your cart is empty');
-            return;
-        }
-
-        // Here you would typically redirect to a checkout page
-        // or show a checkout form
-        alert('Proceeding to checkout...');
-    }
-
-    showToast(message) {
-        const toast = document.createElement('div');
-        toast.className = 'toast';
-        toast.textContent = message;
-        document.body.appendChild(toast);
-
-        setTimeout(() => {
-            toast.remove();
-        }, 3000);
-    }
+    // Update total price display
+    totalPriceElement.innerText = `Total Price: ₹${totalPrice.toFixed(2)}`;
 }
 
-// Initialize cart when DOM is loaded
-document.addEventListener('DOMContentLoaded', () => {
-    checkAuth();
-    window.cart = new ShoppingCart();
+// Function to update item quantity
+function updateQuantity(index, change) {
+    if (!cartItems[index].quantity) {
+        cartItems[index].quantity = 1;
+    }
+    
+    cartItems[index].quantity = Math.max(1, cartItems[index].quantity + change);
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    updateCartDisplay();
+}
+
+// Function to remove item from cart
+function removeFromCart(index) {
+    cartItems.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cartItems));
+    updateCartDisplay();
+}
+
+// Add event listeners for cart interactions
+cartItemsContainer.addEventListener('click', (e) => {
+    if (e.target.closest('.remove-item')) {
+        const index = e.target.closest('.remove-item').dataset.index;
+        removeFromCart(index);
+    } else if (e.target.closest('.decrease')) {
+        const index = e.target.closest('.decrease').dataset.index;
+        updateQuantity(index, -1);
+    } else if (e.target.closest('.increase')) {
+        const index = e.target.closest('.increase').dataset.index;
+        updateQuantity(index, 1);
+    }
 });
 
-let emptyMsgContainer = document.querySelector(".empty-msg-container");
-
-let msgContainer = document.getElementsByClassName("msg-container");
-
-if(cart == []){
-     // emptyMsgContainer.classList.remove("hide");
-     emptyMsgContainer.classList.add("hide");
-}
-
-let button = document.getElementById("btn");
-let removeBtn = document.getElementById("rm-btn");
-
-let count = 1;
-
-button.addEventListener("click", () => {
-     const el = document.createElement("div");
-     el.classList.add("add");
-     el.innerText = `inserted ${count}`;
-     emptyMsgContainer.appendChild(el);
-     count++;
-     // emptyMsgContainer.removeChild(el);
-     removeDiv();
-     function removeDiv() {
-          removeBtn.addEventListener("click", () => {
-               emptyMsgContainer.removeChild(el);
-          });
-     }
+// Checkout button functionality
+document.getElementById('checkout-button').addEventListener('click', () => {
+    if (cartItems.length === 0) {
+        alert('Your cart is empty!');
+        return;
+    }
+    
+    // Here you can implement your checkout logic
+    alert('Proceeding to checkout...');
+    // Clear cart after successful checkout
+    // localStorage.removeItem('cart');
+    // updateCartDisplay();
 });
 
-function removeDiv(){
-     removeBtn.addEventListener("click", () => {
-          emptyMsgContainer.removeChild(el);
-     });
-}
+// Initial cart display
+updateCartDisplay();
 
-// let addDiv = document.createElement("div");
-// button.addEventListener("click", addNewDiv);
-
-// function addNewDiv(){
-//      addDiv.classList.add("add");
-//      addDiv.innerText = "click me!";
-     
-//      emptyMsgContainer.append(addDiv);
-// }
 
 
 

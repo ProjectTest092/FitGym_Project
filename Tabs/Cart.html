@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>FitGym - Shopping Cart</title>
+  <title>Document</title>
   <link rel="stylesheet" href="Cart.css" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
     integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
@@ -21,162 +21,51 @@
 
       <div class="nav-home underline">
         <i class="fa-solid fa-house"></i>
-        <a href="/Project.html">Home</a>
+        <a href="#">Home</a>
       </div>
 
       <div class="nav-contact underline">
-        <a href="#contact-section">Contact Us</a>
+        <a href="#">Contact Us</a>
       </div>
 
       <div class="nav-about underline">
-        <a href="#about-section">About Us</a>
+        <a href="#">About Us</a>
       </div>
 
-      <div class="nav-login underline" id="loginSection">
+      <!-- <div class="nav-cart underline">
+        <i class="fa-solid fa-cart-shopping"></i>
+        <a href="#">Cart</a>
+      </div> -->
+
+      <div class="nav-login underline">
         <i class="fa-solid fa-user"></i>
-        <a href="#" id="loginBtn">Login/Sign Up</a>
-      </div>
-
-      <div class="nav-profile" id="profileSection" style="display: none">
-        <div class="profile-dropdown">
-          <button class="profile-btn">
-            <i class="fa-solid fa-user-circle"></i>
-            <span id="username-display">User</span>
-            <i class="fa-solid fa-chevron-down"></i>
-          </button>
-          <div class="dropdown-content">
-            <a href="#" id="viewProfile">
-              <i class="fa-solid fa-user"></i> View Profile
-            </a>
-            <a href="#" id="logoutBtn">
-              <i class="fa-solid fa-right-from-bracket"></i> Logout
-            </a>
-          </div>
-        </div>
+        <a href="Login.html" target="_blank">Login/Sign Up</a>
       </div>
     </div>
   </header>
 
-  <!-- Login Modal -->
-  <div id="loginModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h1>Member Login</h1>
-      <div id="loginError" class="error-message"></div>
-      <form id="loginForm" action="login_process.php" method="post">
-        <div class="input-group">
-          <label for="email">Email</label>
-          <input type="email" id="email" name="email" required />
-        </div>
-        <div class="input-group">
-          <label for="password">Password</label>
-          <input type="password" id="password" name="password" required />
-        </div>
-        <button type="submit" class="login-btn">Login</button>
-      </form>
-      <div class="links">
-        <a href="#">Forgot Password?</a>
-        <a href="#" id="showSignup">Create Account</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Signup Modal -->
-  <div id="signupModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h1>Create Account</h1>
-      <div id="signupError" class="error-message"></div>
-      <div id="signupSuccess" class="success-message"></div>
-      <form id="signupForm" action="signup_process.php" method="post">
-        <div class="input-group">
-          <label for="username">Username</label>
-          <input type="text" id="username" name="username" placeholder="Enter your username" required />
-        </div>
-        <div class="input-group">
-          <label for="signupEmail">Email</label>
-          <input type="email" id="signupEmail" name="email" placeholder="Enter your email" required />
-        </div>
-        <div class="input-group">
-          <label for="signupPassword">Password</label>
-          <input type="password" id="signupPassword" name="password" placeholder="Enter your password" required />
-        </div>
-        <button type="submit" class="login-btn">Sign Up</button>
-      </form>
-      <div class="links">
-        <a href="#" id="showLogin">Already have an account? Login</a>
-      </div>
-    </div>
-  </div>
-
-  <!-- Profile Modal -->
-  <div id="profileModal" class="modal">
-    <div class="modal-content">
-      <span class="close-btn">&times;</span>
-      <h1>User Profile</h1>
-      <div class="profile-info">
-        <div class="profile-avatar">
-          <i class="fa-solid fa-user-circle"></i>
-        </div>
-        <div class="profile-details">
-          <div class="input-group">
-            <label for="profileUsername">Username</label>
-            <input type="text" id="profileUsername" readonly />
-          </div>
-          <div class="input-group">
-            <label for="profileEmail">Email</label>
-            <input type="email" id="profileEmail" readonly />
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
   <main>
-    <!-- Empty Cart Message -->
-    <div class="empty-msg-container" id="emptyCart">
-      <div class="empty-cart-content">
-        <i class="fa-solid fa-cart-shopping empty-cart-icon"></i>
-        <h2>Your FitGym Cart is empty</h2>
-        <p>Your shopping cart is waiting. Give it purpose – fill it with resistance bands, Yoga Mat, Protein powder and more.</p>
-        <a href="/Project.html" class="continue-shopping-btn">
-          <i class="fa-solid fa-arrow-left"></i> Continue Shopping
-        </a>
+
+
+    <!-- If shopping cart is empty -->
+    <div class="empty-msg-container">
+      <h2>Your FitGym Cart is empty</h2>
+      <p>Your shopping cart is waiting. Give it purpose – fill it with resistance bands, Yoga Mat, Protein powder and
+        more.</p>
+      <p>Continue shopping on the <a href="/Project.html" id="span">FitGym.in</a> homepage.</p>
+    </div>
+
+    <!-- If any item add to cart -->
+    <div class="msg-container">
+      <h2>Shopping Cart</h2>
+      <div class="container">
+        <h1>Your Shopping Cart</h1>
+        <div id="cart-items"></div>
+        <p id="total-price">Total Price: ₹0</p>
+        <button id="checkout-button">Checkout</button>
       </div>
     </div>
 
-    <!-- Shopping Cart Content -->
-    <div class="cart-container" id="cartContent">
-      <div class="cart-header">
-        <h2><i class="fa-solid fa-cart-shopping"></i> Shopping Cart</h2>
-        <span id="itemCount">0 items</span>
-      </div>
-
-      <div class="cart-items" id="cartItems">
-        <!-- Cart items will be dynamically added here -->
-      </div>
-
-      <div class="cart-summary">
-        <div class="summary-row">
-          <span>Subtotal:</span>
-          <span id="subtotal">₹0</span>
-        </div>
-        <div class="summary-row">
-          <span>Shipping:</span>
-          <span id="shipping">₹0</span>
-        </div>
-        <div class="summary-row total">
-          <span>Total:</span>
-          <span id="totalPrice">₹0</span>
-        </div>
-        <button id="checkoutButton" class="checkout-btn">
-          <i class="fa-solid fa-lock"></i> Proceed to Checkout
-        </button>
-      </div>
-    </div>
-
-    <!-- Toast Notification -->
-    <div id="toast" class="toast"></div>
   </main>
 
   <footer>
@@ -189,16 +78,58 @@
         </p>
       </div>
       <div class="footer-section">
+        <h2>Quick Links</h2>
+        <ul>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="#services">Services</a></li>
+          <li><a href="#contact">Contact</a></li>
+          <li><a href="#membership">Membership</a></li>
+        </ul>
+      </div>
+      <div class="footer-section">
         <h2>Contact Us</h2>
         <p>Email: info@fitlifegym.com</p>
         <p>Phone: (123) 456-7890</p>
       </div>
+      <!-- <div class="footer-section">
+        <h2>Follow Us</h2>
+        <ul class="social-media">
+          <li><a href="#">Facebook</a></li>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Twitter</a></li>
+        </ul>
+      </div> -->
     </div>
     <div class="footer-bottom">
       <p>&copy; 2025 FitGym. All rights reserved.</p>
     </div>
   </footer>
 
+  <!-- <script>
+    // Retrieve cart items from local storage
+    const cartItems = JSON.parse(localStorage.getItem('cart')) || [];
+    const cartItemsContainer = document.getElementById('cart-items');
+    const totalPriceElement = document.getElementById('total-price');
+
+    let totalPrice = 0;
+
+    // Display cart items
+    cartItems.forEach(item => {
+      const itemElement = document.createElement('div');
+      itemElement.innerHTML = `<h2>${item.title}</h2><p>Price: ₹${item.price}</p>`;
+      cartItemsContainer.appendChild(itemElement);
+      totalPrice += item.price;
+    });
+
+    // Update total price
+    totalPriceElement.innerText = `Total Price: ₹${totalPrice}`;
+
+    // Checkout button functionality
+    document.getElementById('checkout-button').addEventListener('click', () => {
+      alert('Proceeding to checkout...');
+      // Implement checkout logic here
+    });
+  </script> -->
   <script src="Cart.js"></script>
 </body>
 
